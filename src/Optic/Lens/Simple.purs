@@ -4,7 +4,16 @@
 -- | For an industrial-strength implementation of lenses, and other optics, see
 -- | `purescript-lens`.
 
-module Optic.Lens.Simple where
+module Optic.Lens.Simple
+  ( Lens()
+  , lens
+  , get
+  , set
+  , modify
+  , fstL
+  , sndL
+  , (^.)
+  ) where
 
 import Prelude
 

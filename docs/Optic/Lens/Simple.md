@@ -10,7 +10,6 @@ For an industrial-strength implementation of lenses, and other optics, see
 
 ``` purescript
 newtype Lens a b
-  = Lens (a -> Tuple b (b -> a))
 ```
 
 A lens which focusses from an outer structure of type `a` to an inner structure of type `b`.
@@ -20,15 +19,6 @@ A lens which focusses from an outer structure of type `a` to an inner structure 
 instance semigroupoidLens :: Semigroupoid Lens
 instance categoryLens :: Category Lens
 ```
-
-#### `runLens`
-
-``` purescript
-runLens :: forall a b. Lens a b -> a -> Tuple b (b -> a)
-```
-
-Run a lens, providing a structure. The result will contain the inner structure and an
-function to modify it.
 
 #### `lens`
 
