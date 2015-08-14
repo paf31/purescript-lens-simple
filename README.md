@@ -1,4 +1,7 @@
 purescript-lens-simple
 ======================
 
-Very basic lenses
+Very simple lenses.
+
+- [Module Documentation](docs/Optic/Lens/Simple.md)
+- [Example](test/Main.purs)
