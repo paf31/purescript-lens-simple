@@ -9,5 +9,8 @@
     "node_modules",
     "bower_components",
     "output"
-  ]
+  ],
+  "dependencies": {
+    "purescript-tuples": "~0.4.0"
+  }
 }

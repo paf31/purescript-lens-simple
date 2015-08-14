@@ -1,41 +1,45 @@
 module Test.Main where
 
-import Data.Lens
+import Prelude
 
-import Debug.Trace
+import Optic.Lens.Simple
 
-newtype Person = Person { first :: String, last :: String, address :: Address }
+import Control.Monad.Eff
+import Control.Monad.Eff.Console
 
-newtype Address = Address { street :: String, city :: String, state :: String }
+type Person = { first :: String, last :: String, address :: Address }
+
+type Address = { street :: String, city :: String, state :: String }
 
 first :: Lens Person String
-first = lens (\(Person p) -> p.first) (\(Person p) s -> Person (p { first = s }))
+first = lens _.first (_ { first = _ })
 
 last :: Lens Person String
-last = lens (\(Person p) -> p.last) (\(Person p) s -> Person (p { last = s }))
+last = lens _.last (_ { last = _ })
 
 address :: Lens Person Address
-address = lens (\(Person p) -> p.address) (\(Person p) a -> Person (p { address = a }))
+address = lens _.address (_ { address = _ })
 
 street :: Lens Address String
-street = lens (\(Address a) -> a.street) (\(Address a) s -> Address (a { street = s }))
+street = lens _.street (_ { street = _ })
 
 city :: Lens Address String
-city = lens (\(Address a) -> a.city) (\(Address a) s -> Address (a { city = s }))
+city = lens _.city (_ { city = _ })
 
 state :: Lens Address String
-state = lens (\(Address a) -> a.state) (\(Address a) s -> Address (a { state = s }))
+state = lens _.state (_ { state = _ })
 
 testPerson :: Person
-testPerson = Person { first:   "John"
-                    , last:    "Smith" 
-                    , address: Address { street: "123 Fake St."
-                                       , city: "Faketown"
-                                       , state: "CA"
-                                       }
-                    }
+testPerson = { first:   "John"
+             , last:    "Smith" 
+             , address: { street: "123 Fake St."
+                        , city: "Faketown"
+                        , state: "CA"
+                        }
+             }
 
 main = do
-  trace $ (state <<< address) `get` testPerson
   let testPerson' = set (state <<< address) "AZ" testPerson
-  trace $ (state <<< address) `get` testPerson'
+  
+  log $ testPerson ^. state <<< address
+  log $ testPerson' ^. state <<< address
