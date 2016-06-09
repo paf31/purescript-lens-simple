@@ -8,6 +8,7 @@ module Optic.Lens.Simple
   ( Lens()
   , lens
   , get
+  , view
   , set
   , modify
   , fstL
@@ -17,7 +18,7 @@ module Optic.Lens.Simple
 
 import Prelude
 
-import Data.Tuple
+import Data.Tuple (Tuple(..), fst, snd)
 
 -- | A lens which focusses from an outer structure of type `a` to an inner structure of type `b`.
 newtype Lens a b = Lens (a -> Tuple b (b -> a))
@@ -30,7 +31,7 @@ runLens (Lens l) = l
 instance semigroupoidLens :: Semigroupoid Lens where
   compose f g = Lens \a ->
     case runLens g a of
-      Tuple b ub -> case runLens f b of 
+      Tuple b ub -> case runLens f b of
         Tuple c uc -> Tuple c (ub <<< uc)
 
 instance categoryLens :: Category Lens where
@@ -52,11 +53,11 @@ set l b a = snd (runLens l a) b
 modify :: forall a b. Lens a b -> (b -> b) -> a -> a
 modify l f a = set l (f (get l a)) a
 
-infixl 2 ^.
+infixl 2 view as ^.
 
 -- | An infix alias for `get`.
-(^.) :: forall a b. a -> Lens a b -> b
-(^.) = flip get
+view :: forall a b. a -> Lens a b -> b
+view = flip get
 
 -- | A lens which accesses the first component of a `Tuple.
 fstL :: forall a b. Lens (Tuple a b) a

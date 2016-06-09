@@ -10,11 +10,14 @@
     "bower_components",
     "output"
   ],
-  "repository": {                                               
-    "type": "git",                                              
-    "url": "git://github.com/paf31/purescript-lens-simple.git" 
-  },                                                        
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/paf31/purescript-lens-simple.git"
+  },
   "dependencies": {
-    "purescript-tuples": "~0.4.0"
+    "purescript-tuples": "^1.0.0"
+  },
+  "devDependencies": {
+    "purescript-console": "^1.0.0"
   }
 }

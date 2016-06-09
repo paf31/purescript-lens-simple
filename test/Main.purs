@@ -2,10 +2,9 @@ module Test.Main where
 
 import Prelude
 
-import Optic.Lens.Simple
-
-import Control.Monad.Eff
-import Control.Monad.Eff.Console
+import Control.Monad.Eff (Eff)
+import Control.Monad.Eff.Console (CONSOLE, log)
+import Optic.Lens.Simple (Lens, lens, set, (^.))
 
 type Person = { first :: String, last :: String, address :: Address }
 
@@ -31,15 +30,16 @@ state = lens _.state (_ { state = _ })
 
 testPerson :: Person
 testPerson = { first:   "John"
-             , last:    "Smith" 
+             , last:    "Smith"
              , address: { street: "123 Fake St."
                         , city: "Faketown"
                         , state: "CA"
                         }
              }
 
+main :: forall eff. Eff (console :: CONSOLE | eff) Unit
 main = do
   let testPerson' = set (state <<< address) "AZ" testPerson
-  
+
   log $ testPerson ^. state <<< address
   log $ testPerson' ^. state <<< address

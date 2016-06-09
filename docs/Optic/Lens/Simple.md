@@ -16,8 +16,8 @@ A lens which focusses from an outer structure of type `a` to an inner structure 
 
 ##### Instances
 ``` purescript
-instance semigroupoidLens :: Semigroupoid Lens
-instance categoryLens :: Category Lens
+Semigroupoid Lens
+Category Lens
 ```
 
 #### `lens`
@@ -55,10 +55,14 @@ Use a lens to modify a value inside a larger structure.
 #### `(^.)`
 
 ``` purescript
-(^.) :: forall a b. a -> Lens a b -> b
+infixl 2 view as ^.
 ```
 
-_left-associative / precedence 2_
+#### `view`
+
+``` purescript
+view :: forall a b. a -> Lens a b -> b
+```
 
 An infix alias for `get`.
 
