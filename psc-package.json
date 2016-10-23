@@ -1,0 +1,16 @@
+{
+    "name": "lens-simple",
+    "source": "https://github.com/purescript/package-sets.git",
+    "set": "psc-0.10.1",
+    "depends": [
+      "bifunctors",
+      "control",
+      "foldable-traversable",
+      "invariant",
+      "maybe",
+      "monoid",
+      "newtype",
+      "prelude",
+      "tuples"
+    ]
+}

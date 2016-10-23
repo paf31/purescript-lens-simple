@@ -5,7 +5,7 @@
 -- | `purescript-lens`.
 
 module Optic.Lens.Simple
-  ( Lens()
+  ( Lens
   , lens
   , get
   , view
@@ -18,20 +18,18 @@ module Optic.Lens.Simple
 
 import Prelude
 
+import Data.Newtype (class Newtype, unwrap)
 import Data.Tuple (Tuple(..), fst, snd)
 
 -- | A lens which focusses from an outer structure of type `a` to an inner structure of type `b`.
 newtype Lens a b = Lens (a -> Tuple b (b -> a))
 
--- | Run a lens, providing a structure. The result will contain the inner structure and an
--- | function to modify it.
-runLens :: forall a b. Lens a b -> a -> Tuple b (b -> a)
-runLens (Lens l) = l
+derive instance newtypeLens :: Newtype (Lens a b) _
 
 instance semigroupoidLens :: Semigroupoid Lens where
   compose f g = Lens \a ->
-    case runLens g a of
-      Tuple b ub -> case runLens f b of
+    case unwrap g a of
+      Tuple b ub -> case unwrap f b of
         Tuple c uc -> Tuple c (ub <<< uc)
 
 instance categoryLens :: Category Lens where
@@ -43,11 +41,11 @@ lens getter setter = Lens \a -> Tuple (getter a) (setter a)
 
 -- | Use a lens to get a value inside a larger structure.
 get :: forall a b. Lens a b -> a -> b
-get l a = fst (runLens l a)
+get l a = fst (unwrap l a)
 
 -- | Use a lens to set a value inside a larger structure.
 set :: forall a b. Lens a b -> b -> a -> a
-set l b a = snd (runLens l a) b
+set l b a = snd (unwrap l a) b
 
 -- | Use a lens to modify a value inside a larger structure.
 modify :: forall a b. Lens a b -> (b -> b) -> a -> a
