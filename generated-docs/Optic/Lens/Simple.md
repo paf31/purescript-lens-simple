@@ -16,6 +16,7 @@ A lens which focusses from an outer structure of type `a` to an inner structure 
 
 ##### Instances
 ``` purescript
+Newtype (Lens a b) _
 Semigroupoid Lens
 Category Lens
 ```
