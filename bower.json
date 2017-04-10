@@ -16,9 +16,9 @@
     "url": "git://github.com/paf31/purescript-lens-simple.git"
   },
   "dependencies": {
-    "purescript-tuples": "^2.0.0"
+    "purescript-tuples": "^4.0.0"
   },
   "devDependencies": {
-    "purescript-console": "^2.0.0"
+    "purescript-console": "^3.0.0"
   }
 }
