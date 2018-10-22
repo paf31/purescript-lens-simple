@@ -2,8 +2,8 @@ module Test.Main where
 
 import Prelude
 
-import Control.Monad.Eff (Eff)
-import Control.Monad.Eff.Console (CONSOLE, log)
+import Effect (Effect)
+import Effect.Console (log)
 import Optic.Lens.Simple (Lens, lens, set, (^.))
 
 type Person = { first :: String, last :: String, address :: Address }
@@ -37,7 +37,7 @@ testPerson = { first:   "John"
                         }
              }
 
-main :: forall eff. Eff (console :: CONSOLE | eff) Unit
+main :: Effect Unit
 main = do
   let testPerson' = set (state <<< address) "AZ" testPerson
 
