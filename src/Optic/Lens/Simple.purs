@@ -33,7 +33,7 @@ instance semigroupoidLens :: Semigroupoid Lens where
         Tuple c uc -> Tuple c (ub <<< uc)
 
 instance categoryLens :: Category Lens where
-  id = Lens \a -> Tuple a id
+  identity = Lens \a -> Tuple a identity
 
 -- | Create a lens from a getter and a setter.
 lens :: forall a b. (a -> b) -> (a -> b -> a) -> Lens a b
